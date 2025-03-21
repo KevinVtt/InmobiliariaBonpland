@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmentos</title>
+</head>
+<body>
+    <div>
+        <h3 th:text="${title}"></h3>
+        <a th:href="@{/gestion/inmueble/formInmueble}">crear inmueble</a>
+        <div th:text="'No hay inmuebles en el sistema'" th:if="${#lists.isEmpty(listadoInmueble)}"></div>
+        <table th:if="${not #lists.isEmpty(listadoInmueble)}">
+            <thead>
+              <tr>
+                    <th>id</th>
+                    <th>Cantidad de ambientes</th>
+                    <th>Pais</th>
+                    <th>Ciudad</th>
+                    <th>Precio</th>
+                    <th>Metros cuadrados</th>
+                    <th>Estado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="inmueble: ${listadoInmueble}">
+                    <td th:text="${inmueble.id}"></td>
+                    <td th:text="${inmueble.cantidadAmbientes}"></td>
+                    <td th:text="${inmueble.pais}"></td>
+                    <td th:text="${inmueble.ciudad}"></td>
+                    <td th:text="${inmueble.precio}"></td>
+                    <td th:text="${inmueble.metrosCuadrados}"></td>
+                    <td th:text="${inmueble.estado}"></td>
+                    <td><a th:href="@{/gestion/inmueble/form/} + ${inmueble.id}">Editar</a></td>
+                    <td><a th:href="@{/gestion/inmueble/eliminar/} + ${inmueble.id}">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+</body>
+</html>
