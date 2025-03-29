@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org" lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrado Inmuebles</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h2>Filtro de Inmuebles</h2>
+
+        <!-- Formulario de Filtro -->
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="precio" class="form-label">Rango de precios: <span id="minVal"
+                            th:text="${precioMinimo}"></span></label>
+                    <input type="range" class="form-range" id="precio"
+                        th:attr="min=${precioMinimo}, max=${precioMaximo}" th:value="${precioMinimo}" step="1000">
+                </div>
+            </div>
+
+            <div class="col-md-4 mt-3">
+                <label for="pais" class="form-label">País</label>
+                <select class="form-control" id="pais">
+                    <option value="">Todos</option>
+                    <option th:each="pais : ${listadoInmueblePorPais}" th:value="${pais}" th:text="${pais}"></option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mt-3">
+                <label for="ciudad" class="form-label">Ciudad</label>
+                <select class="form-control" id="ciudad">
+                    <option value="">Todos</option>
+                    <option th:each="ciudad : ${listadoInmueblePorCiudad}" th:value="${ciudad}" th:text="${ciudad}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mt-3">
+                <label for="cantidadAmbientes" class="form-label">Cantidad de Ambientes</label>
+                <select class="form-control" id="cantidadAmbientes">
+                    <option value="">Todos</option>
+                    <option th:each="cantidadAmbientes : ${cantidadAmbientes}" th:value="${cantidadAmbientes}"
+                        th:text="${cantidadAmbientes}"></option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="metrosCuadrados" class="form-label">Metros cuadrados: <span id="metrosCuadradosMin"
+                            th:text="${metrosCuadradosMinimo}"></span></label>
+                    <input type="range" class="form-range" id="metrosCuadrados"
+                        th:attr="min=${metrosCuadradosMinimo}, max=${metrosCuadradosMaximo}"
+                        th:value="${metrosCuadradosMinimo}" step="5">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" id="estado" name="estado">
+                        <option value="">Todos los estados</option>
+                        <option value="ALQUILA">Alquiler</option>
+                        <option value="DISPONIBLE">Compra</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <button class="btn btn-primary mt-3" onclick="filtrar()">Filtrar</button>
+
+        <!-- Lista de Inmuebles -->
+        <div class="mt-4">
+            <h4>Resultados</h4>
+            <table class="table table-striped" th:if="${not #lists.isEmpty(listadoInmueble)}">
+                <thead>
+                    <tr>
+                        <th>Ambientes</th>
+                        <th>País</th>
+                        <th>Ciudad</th>
+                        <th>Precio</th>
+                        <th>Metros²</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="listaInmuebles">
+                    <tr th:each="inmueble : ${listadoInmueble}"
+                        th:attr="data-precio=${inmueble.precio}, data-pais=${inmueble.pais}, data-cantidad-inmueble=${inmueble.cantidadAmbientes}, data-ciudad = ${inmueble.ciudad}, data-metros-cuadrados=${inmueble.metrosCuadrados}, data-estado=${inmueble.estado}">
+                        <td th:text="${inmueble.cantidadAmbientes}"></td>
+                        <td th:text="${inmueble.pais}"></td>
+                        <td th:text="${inmueble.ciudad}"></td>
+                        <td th:text="${inmueble.precio}"></td>
+                        <td th:text="${inmueble.metrosCuadrados}"></td>
+                        <td th:text="${inmueble.estado}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("precio").addEventListener("input", function () {
+            document.getElementById("minVal").innerText = this.value;
+        });
+
+        document.getElementById("metrosCuadrados").addEventListener("input", function () {
+            document.getElementById("metrosCuadradosMin").innerText = this.value;
+        });
+
+        function filtrar() {
+
+            let precioInput = document.getElementById("precio");
+            let precioMinParseFloat = parseFloat(precioInput.value);
+            let pais = document.getElementById("pais").value;
+            let cantidadAmbientes = parseInt(document.getElementById("cantidadAmbientes").value);
+            let ciudad = document.getElementById("ciudad").value;
+            let inmuebles = document.querySelectorAll("#listaInmuebles tr");
+            let metrosCuadrados = parseFloat(document.getElementById("metrosCuadrados").value);
+            let tipoDeEstado = document.getElementById("estado").value;
+
+            if (isNaN(precioMinParseFloat) && pais === "" && isNaN(cantidadAmbientes) && isNaN(metrosCuadrados) && ciudad === "") {
+                inmuebles.forEach(inmueble => {
+                    inmueble.style.display = "";
+                });
+                return;
+            }
+            inmuebles.forEach(inmueble => {
+                let dataPrecio = parseFloat(inmueble.getAttribute("data-precio"));
+                let dataPaisInmueble = inmueble.getAttribute("data-pais");
+                let dataCantAmbientes = parseInt(inmueble.getAttribute("data-cantidad-inmueble"));
+                let dataCiudad = inmueble.getAttribute("data-ciudad");
+                let dataMetrosCuadrados = parseFloat(inmueble.getAttribute("data-metros-cuadrados"))
+                let dataEstado = inmueble.getAttribute("data-estado");
+
+                let cumplePrecio = dataPrecio >= precioMinParseFloat;
+                let cumplePais = pais === "" || pais === dataPaisInmueble;
+                let cumpleAmbientes = isNaN(cantidadAmbientes) || cantidadAmbientes === dataCantAmbientes;
+                let cumpleCiudad = ciudad === "" || ciudad === dataCiudad;
+                let cumpleMetrosCuadrados = dataMetrosCuadrados >= metrosCuadrados;
+                let cumpleCondicion = dataEstado === tipoDeEstado || tipoDeEstado === "";
+
+                if (cumplePrecio && cumplePais && cumpleAmbientes && cumpleCiudad && cumpleMetrosCuadrados && cumpleCondicion) {
+                    inmueble.style.display = "";
+                } else {
+                    inmueble.style.display = "none";
+                }
+            });
+        }
+
+    </script>
+
+    <style>
+        /* ---- Estilos generales ---- */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        /* ---- Barra del input (Chrome, Edge, Safari) ---- */
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 8px;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: -6px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #0056b3;
+        }
+
+        input[type="range"]::-moz-range-track {
+            height: 8px;
+            background: linear-gradient(to right, #007bff, #00d4ff);
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="range"]:hover {
+            background: #ccc;
+        }
+    </style>
+</body>
+
+</html>
