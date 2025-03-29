@@ -46,7 +46,46 @@ public class InmuebleServiceImpl implements InmuebleService {
     }
     // -------------------------------------------------
 
+    @Override
+    public List<Inmueble> findByPais(String pais) {
+        return inmuebleRepository.findByPais(pais);
+    }
+
+    @Override
+    public List<String> findAllPais() {
+        return inmuebleRepository.findAllPais();
+    }
+
+    @Override
+    public Float precioMinimo(){
+        return inmuebleRepository.precioMinimo();
+    }
     
+    @Override
+    public Float precioMaximo(){
+        return inmuebleRepository.precioMaximo();
+    }
 
+    @Override
+    public List<Integer> cantidadAmbientes() {
+        return inmuebleRepository.cantidadAmbientes();
+    }
 
+    @Override
+    public List<String> findAllCiudad() {
+        return inmuebleRepository.findAllCiudad();
+    }
+
+    @Override
+    public Float metrosCuadradosMaximo() {
+        return inmuebleRepository.metrosCuadradosMaximo();
+    }
+
+    @Override
+    public Float metrosCuadradosMinimo() {
+        return inmuebleRepository.metrosCuadradosMinimo();
+    }
+
+    
+    
 }
