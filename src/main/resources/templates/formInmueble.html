@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <header>
+
+        <div class="logo">
+            <img src="../assets/images/logo-sin-fondo.png" alt="logo bonpland">
+            <h1>BONPLAND</h1>
+        <!--<img src="../assets/images/nombre-sin-fondo.png" alt="nombre bonpland">-->
+        </div>
+
+        <nav class="nav-links">
+            <a href="#inicio">INICIO</a>
+            <a href="">COMPRAR</a>
+            <a href="">VENDER</a>
+            <a href="">ALQUILAR</a>
+            <a href="">CONTACTO</a>
+            <a href="#nosotros">NOSOTROS</a>
+        </nav>       
+        
+    </header>
+    
+    <section>
+
+        <div class="secForm principal">
+            <div>
+                <h3 class="no" th:text="${title}"></h3>
+                <a class="no" th:href="@{/gestion/inmueble}">volver</a>
+            </div>
+    
+            <div class="pregunta">
+                <p>¿Como</p>
+                <p>y donde</p>
+                <p>lo quieres?</p>
+            </div>
+            
+            <div>
+                <img class="imgForm" src="../assets/images/sala.jpg" alt="">
+            </div>
+
+            <div class="form">
+                <form class="formulario" th:action="@{/gestion/inmueble}" method="post" th:object="${inmueble}">
+    
+                    <input type="hidden" th:field="*{id}">
+            
+                    <div>
+                        <label for="cantidadAmbientes">Cantidad de Ambientes</label>
+                        <div>
+                            <input type="text" th:field="*{cantidadAmbientes}">
+                            <small th:if="${#fields.hasErrors('cantidadAmbientes')}" th:errors="*{cantidadAmbientes}"></small>
+                        </div>
+                    </div>
+            
+                    <div>
+                        <label for="pais">Pais</label>
+                        <div>
+                            <input type="text" th:field="*{pais}">
+                            <small th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}"></small>
+                        </div>
+                    </div>
+            
+                    <div>
+                        <label for="ciudad">Ciudad</label>
+                        <div>
+                            <input type="text" th:field="*{ciudad}">
+                            <small th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></small>
+                        </div>
+                    </div>
+            
+                    <div>
+                        <label for="precio">Precio</label>
+                        <div>
+                            <input type="number" th:field="*{precio}">
+                            <small th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+                        </div>
+                    </div>
+            
+                    <div>
+                        <label for="metrosCuadrados">Metros Cuadrados</label>
+                        <div>
+                            <input type="text" th:field="*{metrosCuadrados}">
+                            <small th:if="${#fields.hasErrors('metrosCuadrados')}" th:errors="*{metrosCuadrados}"></small>
+                        </div>
+                    </div>
+            
+                    <div>
+                        <label for="estado">Estado</label>
+                        <div>
+                            <select th:field="*{estado}">
+                                <option th:each="estado : ${T(com.project.imuebles.bondpland.inmobiliaria_bonpland.models.enumerator.Estado).values()}" 
+                                        th:value="${estado}" 
+                                        th:text="${estado}">
+                                </option>
+                                <small th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <div class="btn">
+                        <input class="btnEnviar" type="submit" th:value="${(inmueble.id != null && inmueble.id > 0) ? 'Editar' : 'Crear' }">
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+        
+    </section>
+
+    <footer>
+        <div>
+            <h3>Nuestras Redes</h3>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div>
+            <h3>Contactos</h3>
+            <p>Telefono Local</p>
+            <p>Telefono Movil</p>
+        </div>
+        <div>
+            <h3>Ubicanos</h3>
+            <p>Av. de Catalunya, 44, local 2B, 08917 Badalona, Barcelona</p>
+            <a href="https://www.google.com/maps/place/Hermosas+by+yane/@41.449293,2.2280487,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4bbcbfd74d391:0xc00b3490889d9a66!8m2!3d41.449293!4d2.2306236!16s%2Fg%2F11vpvbbpv5?authuser=0&entry=ttu&g_ep=EgoyMDI0MTIwMi4wIKXMDSoASAFQAw%3D%3D">Ir a Google Maps</a>
+        </div>
+    </footer>
+
+</body>
+</html>

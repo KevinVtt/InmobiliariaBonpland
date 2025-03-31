@@ -54,6 +54,9 @@ header{
 .nav-links a:hover{
     background-color: darkgray;
 }
+.aqui{
+    color:orangered;
+}
 /******************************************************************************/
 /********************************VISTA PRINCIPAL*******************************/
 /******************************************************************************/
@@ -109,6 +112,8 @@ section{
     position: relative;
     left: -50px;
     opacity: 0.9;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 1);
+
 }
 /******************************************************************************/
 /***********************************NOSOTROS***********************************/
@@ -151,12 +156,15 @@ section{
     width: 65%;    
     align-items: center;
     gap: 80px;
+    
 }
 .info img{
     width: 400px;
     height: 400px;
     object-fit: cover;
     border-radius: 10px;
+    box-shadow: 10px 10px 50px rgba(0, 0, 0, 1);
+
 }
 .nosotros{
     text-align: start;
@@ -164,4 +172,116 @@ section{
     font-size: 1.1rem;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: 200;
+}
+/******************************************************************************/
+/**********************************FORMULARIO**********************************/
+/******************************************************************************/
+.no{
+    display: none;
+}
+.secForm{
+    display: flex;
+    gap: 40px;
+}
+.pregunta{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: rgba(162, 174, 251, 0.852);
+    height: 300px;
+    width: 20%;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    right: -100px;
+    z-index: 5;
+}
+.pregunta p{
+    font-size: 2rem;
+    font-weight: 600;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgba(0, 0, 0, 0.8);
+}
+.pregunta p:nth-child(2){
+    text-align:center;
+}
+.pregunta p:last-child{
+    text-align:end;
+}
+.imgForm{
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
+
+    height: 400px;
+    width: 600px;
+
+}
+.form{
+    display: flex;
+    width: 30%;
+    height: 80%;
+    margin-left: 100px;
+    align-items: center;    
+}
+.formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    width: 60%;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
+}
+.formulario input:not(:last-child){
+    width: 250px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+.btn{
+    width: 70%;
+    height: 30px;
+}
+.btnEnviar{
+    background-color: #8c8c8e;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+/******************************************************************************/
+/************************************FOOTER************************************/
+/******************************************************************************/
+footer{
+    background-color: #59595a;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+}
+footer div{
+    padding: 20px 0 40px;
+}
+footer div h3{
+    width: 160px;
+    color: white;
+    padding: 20px 0 5px 0;
+    border-bottom: 2px solid #00C3FF;
+    margin-bottom: 20px;
+    text-align: center;
+}
+footer div a i{
+    background-color: rgba(255,255,255,0.2);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    padding: 13px;
+}
+footer div p{
+    color: white;
+}
+footer div a{
+    color: white;
+    text-decoration: none;
 }
