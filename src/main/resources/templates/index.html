@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">  <!-- CORRECTO -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <title>Bon Pland</title>
@@ -12,14 +12,14 @@
     <header>
 
         <div class="logo">
-            <img src="../assets/images/logo-sin-fondo.png" alt="logo bonpland">
+            <img th:src="@{/assets/images/logo-sin-fondo.png}" alt="logo bonpland">
             <h1>BONPLAND</h1>
         <!--<img src="../assets/images/nombre-sin-fondo.png" alt="nombre bonpland">-->
         </div>
 
         <nav class="nav-links">
-            <a href="#inicio">INICIO</a>
-            <a href="">COMPRAR</a>
+            <a th:href="@{/}">INICIO</a>
+            <a th:href="@{/cliente}">COMPRAR</a>
             <a href="">VENDER</a>
             <a href="">ALQUILAR</a>
             <a href="">CONTACTO</a>
@@ -39,7 +39,7 @@
             </div>
     
             <div class="img-principal">
-                <img src="../assets/images/residenziale.jpg" alt="edificios residenciales">
+                <img th:src="@{/assets/images/residenziale.jpg}" alt="edificios residenciales">
             </div>
         </div>
 
@@ -50,7 +50,7 @@
         <div class="secNos">
             
             <div>
-                <img class="imgLlaves" src="../assets/images/entrega-llaves.avif" alt="">
+                <img class="imgLlaves" th:src="@{/assets/images/entrega-llaves.avif}" alt="">
                 <h2>NOSOTROS</h2>
             </div>
 
@@ -61,7 +61,7 @@
                     Nuestra experiencia, seriedad y ética nos permiten disponer de gran prestigio en todo el ámbito de la actividad inmobiliaria, garantizándonos el acceso a selectos clientes, tales como embajadas, consulados y empresas transnacionales de 1° nivel.
                 </p>
 
-                <img src="../assets/images/dar-mano.avif" alt="">
+                <img th:src="@{/assets/images/dar-mano.avif}" alt="">
                 
             </div>
 
