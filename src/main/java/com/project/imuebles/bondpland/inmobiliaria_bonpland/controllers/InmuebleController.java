@@ -40,7 +40,7 @@ public class InmuebleController {
     public String crearInmuebleForm(Model model){
         model.addAttribute("inmueble",new Inmueble());
         model.addAttribute("title","Crear inmueble");
-        return "formInmueble";
+        return "formularios/formInmueble";
     }
 
     @GetMapping("/mostrar/{id}")
@@ -58,7 +58,7 @@ public class InmuebleController {
             model.addAttribute("inmueble", optional.orElseThrow());
             model.addAttribute("title", "Editar inmueble");
             log.info(optional.orElseThrow());
-            return "formInmueble";
+            return "formularios/formInmueble";
         }else{
             redirect.addFlashAttribute("error","El inmueble con id " + id + " no existe en la base de datos");
             return "redirect:/gestion/inmueble";
@@ -70,7 +70,7 @@ public class InmuebleController {
     public String persistirDatosForm(@Valid Inmueble inmueble, BindingResult result, Model model, RedirectAttributes redirect){
         if(result.hasErrors()){
             model.addAttribute("title","Validando formulario inmueble");
-            return "formInmueble";
+            return "formularios/formInmueble";
         }
 
         String message = 

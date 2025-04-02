@@ -30,4 +30,28 @@ List<Inmueble> filtrados(
  @Param("precioMax") float precioMax, // Cambiado a float para coincidir con el tipo de precio
  @Param("estado") Estado estado
 );
+
+    List<Inmueble> findByPais(String pais);
+
+    @Query("SELECT distinct pais FROM Inmueble i ")
+    List<String> findAllPais();
+
+    @Query("SELECT MIN(i.precio) FROM Inmueble i")
+    Float precioMinimo();
+
+    @Query("SELECT MAX(i.precio) FROM Inmueble i")
+    Float precioMaximo();
+
+    @Query("SELECT DISTINCT i.cantidadAmbientes FROM Inmueble i order by i.cantidadAmbientes asc")
+    List<Integer> cantidadAmbientes();
+
+    @Query("SELECT DISTINCT ciudad FROM Inmueble i")
+    List<String> findAllCiudad();
+
+    @Query("SELECT MIN(i.metrosCuadrados) FROM Inmueble i")
+    Float metrosCuadradosMinimo();
+
+    @Query("SELECT MAX(i.metrosCuadrados) FROM Inmueble i")
+    Float metrosCuadradosMaximo();
+
 }
