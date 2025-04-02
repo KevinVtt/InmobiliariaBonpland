@@ -28,4 +28,10 @@ public class InformacionController {
         return "contacto"; // Debes modificar el return por el nombre del archivo html.
     }
 
+    @GetMapping("/")
+    public String inmueble(){
+        // Implementar los inmuebles destacados.
+        return "index"; // Debes modificar el return por el nombre del archivo html.
+    }
+
 }
